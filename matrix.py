@@ -15,10 +15,13 @@ def make_scale( x, y, z ):
     m1[3][3]=1
 
 def make_rotX( theta ):    
-    pass
+    m1=new_matrix()
+    ident(m1)
 
 def make_rotY( theta ):
-    pass
+    m1=new_matrix()
+    ident(m1)
+
 
 def make_rotZ( theta ):
     m1=new_matrix()
@@ -27,8 +30,9 @@ def make_rotZ( theta ):
     s=math.asin(theta*math.PI/180)
     m1[0][0]=c
     m1[0][1]=-1*s
-    m1[0][0]=c
-    m1[0][0]=c
+    m1[1][0]=c
+    m1[1][1]=s
+    
 def print_matrix( matrix ):
     s = ''
     for r in range( len( matrix[0] ) ):
