@@ -6,6 +6,7 @@ def make_translate( x, y, z ):
     m1[0][3]=x
     m1[1][3]=y
     m1[2][3]=z
+    return m1
 
 def make_scale( x, y, z ):
     m1=new_matrix()
@@ -13,15 +14,29 @@ def make_scale( x, y, z ):
     m1[1][1]=y
     m1[2][2]=z
     m1[3][3]=1
+    return m1
 
 def make_rotX( theta ):    
     m1=new_matrix()
     ident(m1)
-
+    c=math.acos(theta*math.PI/180)
+    s=math.asin(theta*math.PI/180)
+    m1[1][1]=c
+    m1[1][2]=-1*s
+    m1[2][1]=s
+    m1[2][2]=c
+    return m1
+    
 def make_rotY( theta ):
     m1=new_matrix()
     ident(m1)
-
+    c=math.acos(theta*math.PI/180)
+    s=math.asin(theta*math.PI/180)
+    m1[0][0]=c
+    m1[0][2]=s
+    m1[2][0]=-1*s
+    m1[2][2]=c
+    return m1
 
 def make_rotZ( theta ):
     m1=new_matrix()
@@ -30,8 +45,9 @@ def make_rotZ( theta ):
     s=math.asin(theta*math.PI/180)
     m1[0][0]=c
     m1[0][1]=-1*s
-    m1[1][0]=c
-    m1[1][1]=s
+    m1[1][0]=s
+    m1[1][1]=c
+    return m1
     
 def print_matrix( matrix ):
     s = ''
