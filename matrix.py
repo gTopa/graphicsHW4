@@ -3,9 +3,10 @@ import math
 def make_translate( x, y, z ):
     m1=new_matrix()
     ident(m1)
-    m1[0][3]=x
-    m1[1][3]=y
-    m1[2][3]=z
+    m1[3][0]=x
+    m1[3][1]=y
+    m1[3][2]=z
+    print_matrix(m1)
     return m1
 
 def make_scale( x, y, z ):
@@ -19,33 +20,33 @@ def make_scale( x, y, z ):
 def make_rotX( theta ):    
     m1=new_matrix()
     ident(m1)
-    c=math.acos(theta*math.PI/180)
-    s=math.asin(theta*math.PI/180)
+    c=math.acos(theta*math.pi/180)
+    s=math.asin(theta*math.pi/180)
     m1[1][1]=c
-    m1[1][2]=-1*s
-    m1[2][1]=s
+    m1[2][1]=-1*s
+    m1[1][2]=s
     m1[2][2]=c
     return m1
     
 def make_rotY( theta ):
     m1=new_matrix()
     ident(m1)
-    c=math.acos(theta*math.PI/180)
-    s=math.asin(theta*math.PI/180)
+    c=math.acos(theta*math.pi/180.0)
+    s=math.asin(theta*math.pi/180.0)
     m1[0][0]=c
-    m1[0][2]=s
-    m1[2][0]=-1*s
+    m1[2][0]=s
+    m1[0][2]=-1*s
     m1[2][2]=c
     return m1
 
 def make_rotZ( theta ):
     m1=new_matrix()
     ident(m1)
-    c=math.acos(theta*math.PI/180)
-    s=math.asin(theta*math.PI/180)
+    c=math.acos(theta*math.pi/180)
+    s=math.asin(theta*math.pi/180)
     m1[0][0]=c
-    m1[0][1]=-1*s
-    m1[1][0]=s
+    m1[1][0]=-1*s
+    m1[0][1]=s
     m1[1][1]=c
     return m1
     
@@ -77,7 +78,6 @@ def matrix_mult( m1, m2 ):
     for row in m2:
         #get a copy of the next point
         tmp = row[:]
-        
         for r in range(4):
             m2[point][r] = (m1[0][r] * tmp[0] +
                             m1[1][r] * tmp[1] +

@@ -1,6 +1,7 @@
 from display import *
 from matrix import *
 from draw import *
+import time
 
 """
 Goes through the file named filename and performs all of the actions listed in that file.
@@ -35,34 +36,44 @@ def parse_file( fname, points, transform, screen, color ):
     script=open(fname,"r")
     prompt=script.readline()
     while(len(prompt)>0):
+        print_matrix(transform)
         if(prompt=="line\n"):
             prompt=script.readline()
             prompt=prompt.split()
-            add_edge(points, prompt[0],prompt[1],prompt[2],prompt[3],prompt[4],prompt[5])
-        else if(prompt=="ident\n"):
+            add_edge(points, float(prompt[0]),float(prompt[1]),float(prompt[2]),float(prompt[3]),float(prompt[4]),float(prompt[5]))
+        elif(prompt=="ident\n"):
             ident(transform)
-        else if(prompt=="scale\n"):
+            print "ident \n"
+            print_matrix(transform)
+        elif(prompt=="scale\n"):
             prompt=script.readline()
             prompt=prompt.split()
-            matrix_mult(make_scale(int(prompt[0]),int(prompt[1]),int(prompt[2])),transform)
-        else if(prompt=="move\n"):
+            print "scale \n"
+            print_matrix(transform)
+            matrix_mult(make_scale(float(prompt[0]),float(prompt[1]),float(prompt[2])),transform)
+        elif(prompt=="move\n"):
             prompt=script.readline()
             prompt=prompt.split()
-            matrix_mult(make_translate(int(prompt[0]),int(prompt[1]),int(prompt[2])),transform)
-        else if(prompt=="rotate\n"):
+            matrix_mult(make_translate(float(prompt[0]),float(prompt[1]),float(prompt[2])),transform)
+        elif(prompt=="rotate\n"):
             prompt=script.readline()
             prompt=prompt.split()
             if(prompt[0]=="x"):
-                matrix_mult(make_rotX(int(prompt[1])),transform)
+                matrix_mult(make_rotX(float(prompt[1])),transform)
             if(prompt[0]=="y"):
-                matrix_mult(make_rotY(int(prompt[1])),transform)
+                matrix_mult(make_rotY(float(prompt[1])),transform)
             if(prompt[0]=="z"):
-                matrix_mult(make_rotZ(int(prompt[1])),transform)                
-        else if(prompt=="apply\n"):
+                matrix_mult(make_rotZ(float(prompt[1])),transform)
+        elif(prompt=="apply\n"):
             matrix_mult(transform,points)
-        else if(prompt=="display\n"):
+        elif(prompt=="display\n"):
+            clear_screen(screen)
+            draw_lines(points,screen,color)
             display(screen)
-        else if(prompt=="save\n"):
-            save_extension(screen,)
-        else if(prompt=="quit\n"):
+            time.sleep(1)
+        elif(prompt=="save\n"):
+            prompt=prompt.split()
+            save_extension(screen,prompt[0])
+        prompt=script.readline()
+            
             
