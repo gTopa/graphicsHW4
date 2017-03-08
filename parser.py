@@ -36,20 +36,15 @@ def parse_file( fname, points, transform, screen, color ):
     script=open(fname,"r")
     prompt=script.readline()
     while(len(prompt)>0):
-        print_matrix(transform)
         if(prompt=="line\n"):
             prompt=script.readline()
             prompt=prompt.split()
             add_edge(points, float(prompt[0]),float(prompt[1]),float(prompt[2]),float(prompt[3]),float(prompt[4]),float(prompt[5]))
         elif(prompt=="ident\n"):
             ident(transform)
-            print "ident \n"
-            print_matrix(transform)
         elif(prompt=="scale\n"):
             prompt=script.readline()
             prompt=prompt.split()
-            print "scale \n"
-            print_matrix(transform)
             matrix_mult(make_scale(float(prompt[0]),float(prompt[1]),float(prompt[2])),transform)
         elif(prompt=="move\n"):
             prompt=script.readline()
@@ -72,6 +67,7 @@ def parse_file( fname, points, transform, screen, color ):
             display(screen)
             time.sleep(1)
         elif(prompt=="save\n"):
+            prompt=script.readline()
             prompt=prompt.split()
             save_extension(screen,prompt[0])
         prompt=script.readline()
